@@ -85,4 +85,12 @@ def too_large(_):
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    import os
+
+    port = int(os.environ.get("PORT", 5000))
+    on_server = "PORT" in os.environ
+    app.run(
+        host="0.0.0.0" if on_server else "127.0.0.1",
+        port=port,
+        debug=not on_server,
+    )
